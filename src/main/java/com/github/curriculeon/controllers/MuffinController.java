@@ -2,12 +2,17 @@ package com.github.curriculeon.controllers;
 
 import com.github.curriculeon.models.Muffin;
 import com.github.curriculeon.services.MuffinService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping(value = "/muffin")
+@RestController
 public class MuffinController {
     private MuffinService service;
 
+    @Autowired
     public MuffinController(MuffinService service) {
         this.service = service;
     }
@@ -16,19 +21,23 @@ public class MuffinController {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
 
-    public ResponseEntity<Muffin> show(Long id) {
+    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Muffin> show( @RequestParam Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    public ResponseEntity<Muffin> create(Muffin baker) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ResponseEntity<Muffin> create(@RequestBody Muffin baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Muffin> update(Long id, Muffin baker) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Muffin> update(@RequestParam Long id, @RequestBody Muffin baker) {
         return new ResponseEntity<>(service.update(id, baker), HttpStatus.OK);
     }
 
-    public ResponseEntity<Boolean> destroy(Long id) {
+    @RequestMapping(value = "/destroy/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> destroy(@RequestParam Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 }
