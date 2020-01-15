@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(value = "/baker")
+@RequestMapping(value = "/bakers")
 @RestController
 public class BakerController {
     private BakerService service;
@@ -22,12 +22,12 @@ public class BakerController {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Baker> show(@RequestBody Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Baker> create(@RequestBody Baker baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
