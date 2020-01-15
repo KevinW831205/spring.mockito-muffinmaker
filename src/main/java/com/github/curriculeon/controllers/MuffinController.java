@@ -22,7 +22,7 @@ public class MuffinController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Muffin> show( @RequestParam Long id) {
+    public ResponseEntity<Muffin> show( @PathVariable Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
